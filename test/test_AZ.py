@@ -33,7 +33,7 @@ class TestQuery3(unittest.TestCase):
 
         res = s.check_if_condition_hold(loaded, 1)
         print(f"Does loaded hold at timepoint 1? -", res)
-        self.expectEqual(res, None)
+        self.expectEqual(res, False)
 
         res = s.check_if_condition_hold(loaded, 3)
         print(f"Does loaded hold at timepoint 3? -", res)

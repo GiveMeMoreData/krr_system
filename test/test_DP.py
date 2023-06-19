@@ -126,14 +126,19 @@ class DP_tests(unittest.TestCase):
 
         print("f at 3")
         print("expected: None, obtained: ", s.check_if_condition_hold(f, 3))
-        print("g at 6")
-        print("expected: True, obtained: ", s.check_if_condition_hold(g, 6))
+        self.assertEqual(s.check_if_condition_hold(f, 3), None)
         print("h at 7")
         print("expected: False, obtained: ", s.check_if_condition_hold(h, 7)) 
+        self.assertEqual(s.check_if_condition_hold(h, 7), False)
         print("f at 7")
         print("expected: None, obtained: ", s.check_if_condition_hold(f, 7)) 
-        print("f | h at 3")
-        print("expected: True, obtained: ", s.check_if_condition_hold(f | h, 3))        
+        self.assertEqual(s.check_if_condition_hold(h, 7), False)   
+        print("A at 4")
+        print("expected: True, obtained: ", s.does_action_perform("A", 4))
+        self.assertEqual(s.does_action_perform("A", 4), True)
+        print("A at 5")
+        print("expected: False, obtained: ", s.does_action_perform("A", 5))
+        self.assertEqual(s.does_action_perform("A", 5), False)      
 
 
 if __name__ == '__main__':

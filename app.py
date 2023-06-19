@@ -432,11 +432,11 @@ if submit_button:
             if statement_quartet not in list_of_statements_splitted:
                 file_statements.write("," + statement_quartet)
                 list_of_statements += "," + statement_quartet
-        st.write(list_of_statements)
+        # st.write(list_of_statements)
 
         file_statements.close()
-        st.write(f"{statement_quartet}")
-        st.write(list_of_statements.split(","))
+        # st.write(f"{statement_quartet}")
+        # st.write(list_of_statements.split(","))
     elif not is_formula_valid(statement_condition) and not is_formula_empty(statement_condition):
         st.write("Invalid statement condition")
     elif statement_type != "impossible" and statement_type != "releases" and not is_formula_valid(cause_formula):
@@ -616,7 +616,7 @@ if action_occurrence_button:
     action_occurrence_couple = f"{action_occurrence};{action_occurrence_time}"
 
     file_action_occurrences = open("variables/action_occurrences.txt", "a")
-    st.write()
+    # st.write()
     if len(list_of_action_occurrences) == 0:
         file_action_occurrences.write(action_occurrence_couple)
         list_of_action_occurrences += action_occurrence_couple
@@ -627,6 +627,7 @@ if action_occurrence_button:
         if action_occurrence_time not in list_of_action_occurrence_times:
             file_action_occurrences.write("," + action_occurrence_couple)
             list_of_action_occurrences += "," + action_occurrence_couple
+    file_action_occurrences.close()
 
 st.header("Queries")
 

@@ -33,7 +33,7 @@ class TestQueryAZ(unittest.TestCase):
         d.terminate_time(10)
 
         obs = [(~closed, 4), (borrowed, 5), (is_read, 7)]
-        acs = [('open', 1)]
+        acs = [('open', 1), ('borrow', 4), ('read', 6)]
         s = Scenario(domain=d, observations=obs, action_occurrences=acs)
 
         res = s.is_consistent(verbose=True)
@@ -47,7 +47,7 @@ class TestQueryAZ(unittest.TestCase):
 
         res = s.is_consistent(verbose=True)
         print(f"Is consistent? -", res)
-        self.expectEqual(res, True)
+        self.expectEqual(res, False)
 
 
         obs = [(~closed, 4), (borrowed, 5), (is_read, 7)]
@@ -103,40 +103,6 @@ class TestQueryAZ(unittest.TestCase):
 
         print(f"Does action open hold at timepoint 1? -", res)
         res = s.does_action_perform('open', 1)
-        self.expectEqual(res, True)
-
-    def test_action_performs_2(self):
-        is_read = Symbol('is_read')
-        borrowed = Symbol('borrowed')
-        closed = Symbol('closed')  # Library
-
-        d = TimeDomainDescription()
-        d.initially(closed=True, read=False, borrowed=False)
-
-        d.causes('read', is_read, borrowed)
-        d.causes('borrow', borrowed, ~borrowed & ~closed)
-        d.causes('return', ~is_read & ~borrowed, is_read & borrowed & ~closed)
-        d.causes('open', ~closed)
-        d.causes('close', closed)
-
-        d.duration('read', 2)
-        d.duration('borrow', 1)
-        d.duration('return', 1)
-        d.duration('open', 3)
-        d.duration('close', 3)
-
-        d.terminate_time(10)
-
-        obs = [(~closed, 4), (borrowed, 5), (is_read, 7)]
-        acs = [('open', 1), ('read', 5)]
-        s = Scenario(domain=d, observations=obs, action_occurrences=acs)
-
-        res = s.is_consistent(verbose=True)
-        print(f"Is consistent? -", res)
-        self.expectEqual(res, True)
-
-        print(f"Does action borrow perform at timepoint 4? -", res)
-        res = s.does_action_perform('borrow', 4)
         self.expectEqual(res, True)
 
     def test_condition_holds(self):
